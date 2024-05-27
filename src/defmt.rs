@@ -20,3 +20,13 @@ where
         defmt::write!(fmt, "{=str}", self.as_str());
     }
 }
+
+impl<K, T, const N: usize> defmt::Format for crate::LinearMap<K, T, N>
+where
+    K: defmt::Format,
+    T: defmt::Format,
+{
+    fn format(&self, fmt: Formatter<'_>) {
+        self.buffer.format(fmt)
+    }
+}
